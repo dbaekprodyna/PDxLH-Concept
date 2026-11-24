@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Concept 2 v4 — Beyond the Dashboard</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+.h2t .g{color:#8a8a8a;display:block}.h2t .k{display:block}
+.ico{width:44px;height:44px;border-radius:50%;border:1.5px solid #111;background:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.pc{border:1px solid #999;background:#fff;padding:14px;display:flex;flex-direction:column;gap:8px;box-sizing:border-box}
+.tag{align-self:flex-start;font-size:11px;font-weight:600;padding:4px 8px;margin-top:auto}
+body{margin:0}
+section[id],article[id]{scroll-margin-top:72px}
+a{color:#111}a:hover{color:#555}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,40px);box-sizing:border-box}
+.ctx{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#555}
+.lbl{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#555}
+.note{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;line-height:1.5;color:#333;border:1px dashed #8a8a8a;background:#fafafa;padding:8px 12px}
+.fix{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;background:#e6e6e6;padding:2px 6px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 22px;background:#111;color:#fff;text-decoration:none;font-weight:600;font-size:15px;border-radius:2px;box-sizing:border-box}
+.btn:hover{background:#3a3a3a;color:#fff}
+.btn2{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 22px;border:1px solid currentColor;text-decoration:none;font-weight:600;font-size:15px;border-radius:2px;box-sizing:border-box}
+.ph{border:2px dashed currentColor;display:inline-flex;flex-direction:column;align-items:flex-start;position:relative;box-sizing:border-box}
+.phtag{position:absolute;top:-11px;left:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;padding:2px 6px;text-transform:uppercase}
+.tile{border:1px solid #c4c4c4;background:#f6f6f6;padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;min-width:0;text-decoration:none;color:#111;box-sizing:border-box}
+.tile:hover{background:#ececec;color:#111}
+.tn{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.tc{font-size:13px;color:#444}
+.card{position:sticky;top:84px;border:1px solid #bdbdbd;border-radius:12px;padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:22px;box-sizing:border-box;background:#fff}
+.chead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
+.dot{min-height:36px;padding:0 12px;border:1px solid #111;font:inherit;font-size:12px;cursor:pointer}
+.arrow{width:44px;height:44px;border:1px solid #111;background:#fff;font-size:18px;cursor:pointer}
+.view{overflow:hidden}
+.track{display:flex;gap:24px;transition:transform .5s ease}
+.sl{flex:0 0 88%;min-width:0;box-sizing:border-box;border:1px solid #ddd;padding:clamp(20px,2.6vw,32px);min-height:470px;display:flex;flex-direction:column;gap:18px;background:#fff}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:36px;align-items:center;flex:1}
+.h3{margin:0;font-size:clamp(26px,2.8vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.big{font-size:clamp(56px,6.5vw,92px);font-weight:700;letter-spacing:-.045em;line-height:.9}
+.p{margin:0;font-size:17px;line-height:1.55;color:#333;max-width:620px}
+.felt{display:flex;flex-direction:column;gap:0;border-top:1px solid #111}
+.fp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:4px 24px;padding:14px 0;border-bottom:1px solid #ddd}
+.fp b{font-size:17px}
+.fp i{font-size:20px;color:#111}
+.hpi{display:inline-flex;align-items:center;gap:10px;border:1.5px solid #111;padding:8px 14px;font-size:14px;align-self:flex-start}
+.frame{border:1px solid #bdbdbd;background:#f4f4f4;padding:20px;box-sizing:border-box}
+.ln{height:10px;background:#d4d4d4;border-radius:2px}
+.sw{display:flex;align-items:center;gap:8px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.fl{display:flex;flex-direction:column;gap:9px;font-size:13px}
+.fl a{text-decoration:none;color:#333}
+@media (max-width:820px){.bento{grid-template-columns:1fr !important;grid-auto-rows:auto !important}.bento>*{grid-column:auto !important;grid-row:auto !important;min-height:170px}.card{position:relative;top:auto}.sl{flex-basis:92%}}
+</style>
+</helmet>
+<div id="top" style="font-family: 'Inter', system-ui, sans-serif; color: #111; background: #fff; min-height: 100vh; display: flex; flex-direction: column">
+
+<!-- GLOBAL NAV -->
+<header style="border-bottom: 1px solid #ddd; background: #fff">
+<div class="wrap" style="min-height: 72px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="https://www.prodyna.com/" style="display: flex; align-items: center; min-height: 44px"><img src="./assets/0dd6362f7cac3b12fbdfc486082959c2.svg" alt="PRODYNA" style="height: 26px; width: auto; display: block"></a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 24px; font-size: 13px">
+<a href="#" style="text-decoration: none">Services ▾</a><a href="#" style="text-decoration: none">Expertise ▾</a><a href="#" style="text-decoration: none">Success</a><a href="#" style="text-decoration: none">Insights</a><a href="#" style="text-decoration: none">Careers</a><a href="#" style="text-decoration: none">About us</a><a href="#" style="text-decoration: none">News/Events</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 16px"><span style="font-size: 13px">DE | <b>EN</b></span><a class="btn" href="#contact">Get in touch</a></div>
+</div>
+</header>
+
+<!-- LOCAL NAV -->
+<div style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.97); border-bottom: 1px solid #ddd">
+<div class="wrap" style="min-height: 60px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-top: 6px; padding-bottom: 6px">
+<a href="#top" aria-label="13 Years. One Journey. — back to top" style="display: flex; align-items: center; min-height: 44px"><img src="./assets/677de1826bfa1670d124b495d141598c.svg" alt="13 Years. One Journey. PRODYNA × Lufthansa Cargo" style="height: 30px; width: auto; display: block"></a>
+<nav aria-label="Modules" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; font-size: 13px">
+<a href="#thirteen-years" style="text-decoration: none; font-weight: 600; border-bottom: 2px solid #111; padding: 4px 0">1 Partnership</a>
+<a href="#milestones" style="text-decoration: none">2 Milestones</a>
+<a href="#how-we-work" style="text-decoration: none">3 How we work</a>
+<a href="#journey" style="text-decoration: none">4 Journey</a>
+<a href="#projects" style="text-decoration: none">5 Projects</a>
+<a href="#design-system" style="text-decoration: none">6 Design</a>
+<a class="btn" href="#contact" style="min-height: 40px; padding: 0 16px; font-size: 13px">Talk to us</a>
+</nav>
+</div>
+</div>
+
+<!-- HERO + DASHBOARD -->
+<section style="position: relative; background: #fff; overflow: hidden">
+<svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute; left: 0; right: 0; top: 0; width: 100%; height: 520px"><line x1="0" y1="0" x2="100" y2="100" stroke="#d3d3d3" vector-effect="non-scaling-stroke"></line><line x1="100" y1="0" x2="0" y2="100" stroke="#d3d3d3" vector-effect="non-scaling-stroke"></line></svg>
+<div style="position: absolute; top: 24px; right: 40px; display: flex; align-items: center; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #444; letter-spacing: .06em"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M10 8l6 4-6 4z"></path></svg>BACKGROUND VIDEO · LOOP · MUTED</div>
+<div class="wrap" style="position: relative; padding-top: 96px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 24px">
+<div class="ctx">Beyond the Dashboard · PRODYNA × Lufthansa Cargo · 2013 – 2026</div>
+<h1 style="margin: 0"><img src="./assets/4bbc64f89434425da50a9ad3c54f0a7c.svg" alt="13 Years. One Journey. PRODYNA × Lufthansa Cargo" style="width: min(100%, 640px); height: auto; aspect-ratio: 856 / 240; display: block"></h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #292929; max-width: 640px; background: rgba(255,255,255,.85)">More than a decade of collaboration. Countless achievements. One shared success story. A reflection on everything we've accomplished together — and why we're proud of it.</p>
+<div><a class="btn" href="#contact">Talk to us →</a></div>
+<div class="bento" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 190px; grid-auto-flow: dense; gap: 14px; margin-top: 24px">
+<a class="tile" href="#thirteen-years" style="grid-column: span 2"><span class="lbl">1 · The partnership</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px"><sc-for list="{{ whyStats }}" as="w" hint-placeholder-count="3"><div style="display: flex; flex-direction: column; gap: 6px"><svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"><path d="{{ w.d }}"></path></svg><span class="tn">{{ w.n }}</span><span class="tc">{{ w.l }}</span></div></sc-for></div>
+<span class="tc">20+ projects since 2013 · 1 partnership</span></a>
+<a class="tile" href="#how-we-work"><span class="lbl">3 · How we work</span><div style="display: flex; flex-direction: column; gap: 4px"><span class="tn">5</span><span class="tc">phases · 30+ releases since 2023</span></div></a>
+<a class="tile" href="#journey" style="grid-row: span 2"><span class="lbl">4 · The journey</span><div aria-hidden="true" style="position: relative; display: flex; flex-direction: column; gap: 6px"><div style="position: absolute; left: 11px; top: 12px; bottom: 12px; border-left: 1.5px dashed #999"></div><sc-for list="{{ chainStack }}" as="c" hint-placeholder-count="7"><div style="position: relative; display: flex; align-items: center; gap: 10px"><span style="width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 1.5px solid #111; border-style: {{ c.bs }}; display: flex; align-items: center; justify-content: center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="{{ c.d }}"></path></svg></span><span style="font-size: 13px; font-weight: 600">{{ c.name }}</span></div></sc-for></div><span style="font-size: 18px; font-weight: 700; line-height: 1.2">From warehouse systems to AI</span></a>
+<a class="tile" href="#projects" style="grid-column: span 2"><span class="lbl">5 · Plan. Book. Track. Ask.</span>
+<div aria-hidden="true" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px"><sc-for list="{{ projects }}" as="pr" hint-placeholder-count="4"><div style="display: flex; flex-direction: column; gap: 8px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"><path d="{{ pr.d }}"></path></svg><span style="font-size: 14px; font-weight: 700">{{ pr.step }}</span><span style="font-size: 12px; color: #444">{{ pr.status }}</span></div></sc-for></div>
+<div style="display: flex; align-items: baseline; gap: 12px"><span class="tn">4</span><span class="tc">projects along the customer journey</span></div></a>
+<a class="tile" href="#design-system" style=""><span class="lbl">6 · Design</span><div style="display: flex; flex-direction: column; gap: 4px"><span class="tn" style="font-size: 30px">2016 → 2026</span><span class="tc">Design once. Scale everywhere.</span></div></a>
+<a class="tile" href="#milestones" style="grid-column: span 3"><span class="lbl">2 · Milestones</span><div aria-hidden="true" style="position: relative; display: flex; justify-content: space-between; align-items: center"><div style="position: absolute; left: 6px; right: 6px; top: 50%; border-top: 1px solid #999"></div><sc-for list="{{ milestones }}" as="m" hint-placeholder-count="6"><span style="position: relative; background: #f6f6f6; padding: 0 6px; font-size: 13px; font-weight: 600">● {{ m.year }}</span></sc-for></div><span style="font-size: 26px; font-weight: 700; letter-spacing: -.02em">Countless milestones. Always one step ahead.</span></a>
+<a class="tile" href="#contact" style="background: #111; color: #fff; border-color: #111"><span class="lbl" style="color: #ccc">Your project</span><span style="font-size: 20px; font-weight: 700; line-height: 1.2">Your dashboard starts with a conversation.</span><span style="font-size: 14px; text-decoration: underline">Talk to us →</span></a>
+
+
+
+
+
+
+
+
+
+</div>
+<div class="note">↳ Hero dashboard: six KPI modules, one per section. Each tile jumps to its module; numbers count up on load.</div>
+</div>
+</section>
+
+<!-- MODULES -->
+<section style="background: #e9e9e9; padding: 32px 0 112px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div class="note">↳ Deck behaviour: each module is a card that sticks under the local nav while the next one stacks over it. Inside a card, three slides move horizontally — 1 The number · 2 The story · 3 Beyond the number. Deep links: #projects opens slide 1, #projects?slide=3 opens slide 3. Try it in Play.</div>
+
+<!-- M1 -->
+<article id="thirteen-years" class="card">
+<div class="chead"><span class="ctx">Module 1 / 6 · PRODYNA × Lufthansa Cargo · 13 years</span>
+<div class="sw"><sc-for list="{{ m1.dots }}" as="d" hint-placeholder-count="3"><button type="button" class="dot" onClick="{{ d.pick }}" style="background: {{ d.bg }}; color: {{ d.fg }}">{{ d.label }}</button></sc-for><button type="button" class="arrow" aria-label="Previous slide" onClick="{{ m1.prev }}">←</button><button type="button" class="arrow" aria-label="Next slide" onClick="{{ m1.next }}">→</button></div></div>
+<div class="view"><div class="track" style="transform: translateX({{ m1.tx }})">
+<div class="sl"><div style="display: flex; flex-direction: column; gap: 40px; flex: 1; justify-content: center"><div style="display: flex; flex-direction: column; gap: 16px"><span class="lbl">The partnership</span><h2 class="h3 h2t"><span class="g">20+ projects since 2013</span><span class="k">1 partnership</span></h2></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 24px; border-top: 1px solid #111; padding-top: 32px"><sc-for list="{{ whyStats }}" as="w" hint-placeholder-count="3"><div style="display: flex; flex-direction: column; gap: 14px"><svg aria-hidden="true" width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"><path d="{{ w.d }}"></path></svg><span style="font-size: clamp(72px, 8vw, 120px); font-weight: 700; letter-spacing: -.05em; line-height: .9">{{ w.n }}</span><span style="font-size: 18px">{{ w.l }}</span></div></sc-for></div>
+<span class="note">↳ Numbers count up as the slide comes into view.</span></div></div>
+<div class="sl"><span class="lbl">The story</span><h2 class="h3">Small beginnings. Big ambitions.</h2><p class="p" style="font-size: 22px; line-height: 1.45">Small beginnings. Big ambitions. Over 20 projects and 13 years of partnership. One shared success story — and we're still writing it.</p></div>
+<div class="sl"><span class="lbl">Beyond the number</span><div class="felt"><div class="fp"><b>20+ projects since 2013</b><i>1 partnership</i></div><div class="fp"><b>3 projects still running today</b><i>0 days we wanted to switch partners</i></div></div><span class="hpi"><span class="lbl">Human performance indicator</span><b>Loyalty</b></span></div>
+</div></div>
+<div class="ctas"><a class="btn" href="#contact">Talk to us →</a><a class="btn2" href="#top">See the whole journey →</a><span style="margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{ m1.count }}</span></div>
+</article>
+<!-- M2 -->
+<article id="milestones" class="card">
+<div class="chead"><span class="ctx">Module 2 / 6 · PRODYNA × Lufthansa Cargo · 13 years</span>
+<div class="sw"><sc-for list="{{ m2.dots }}" as="d" hint-placeholder-count="3"><button type="button" class="dot" onClick="{{ d.pick }}" style="background: {{ d.bg }}; color: {{ d.fg }}">{{ d.label }}</button></sc-for><button type="button" class="arrow" aria-label="Previous slide" onClick="{{ m2.prev }}">←</button><button type="button" class="arrow" aria-label="Next slide" onClick="{{ m2.next }}">→</button></div></div>
+<div class="view"><div class="track" style="transform: translateX({{ m2.tx }})">
+<div class="sl"><span class="lbl">Milestones</span><h2 class="h3 h2t"><span class="g">Countless milestones.</span><span class="k">Always one step ahead.</span></h2>
+<div style="flex: 1; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; position: relative; align-content: center">
+<div aria-hidden="true" style="position: absolute; left: 6px; right: 6px; top: calc(50% - 26px); border-top: 1px solid #999"></div>
+<sc-for list="{{ milestones }}" as="m" hint-placeholder-count="6"><div style="position: relative; display: flex; flex-direction: column; gap: 10px"><span style="font-size: 18px; font-weight: 500">{{ m.year }}</span><span style="width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid #111; background: #fff"></span><span style="font-size: 14px; font-weight: 700; line-height: 1.3">{{ m.title }}</span></div></sc-for>
+</div><span class="note">↳ The line draws year by year; each stop lights up as it is reached.</span></div>
+<div class="sl"><span class="lbl">The story</span><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px 24px"><sc-for list="{{ milestones }}" as="m" hint-placeholder-count="6"><div style="border-top: 3px solid #111; padding-top: 10px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 13px; font-weight: 700">{{ m.year }} · {{ m.title }}</span><span style="font-size: 14px; line-height: 1.5; color: #333">{{ m.copy }}</span></div></sc-for></div></div>
+<div class="sl"><span class="lbl">Beyond the number</span><div class="felt"><div class="fp"><b>Every milestone visible</b><i>always at the same flight level</i></div><div class="fp"><b>Recommended routes at a glance</b><i>always found the right course together</i></div></div><span class="hpi"><span class="lbl">Human performance indicator</span><b>Orientation</b></span></div>
+</div></div>
+<div class="ctas"><a class="btn" href="#contact">Talk to us →</a><a class="btn2" href="#top">See the whole journey →</a><span style="margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{ m2.count }}</span></div>
+</article>
+<!-- M3 -->
+<article id="how-we-work" class="card">
+<div class="chead"><span class="ctx">Module 3 / 6 · PRODYNA × Lufthansa Cargo · 13 years</span>
+<div class="sw"><sc-for list="{{ m3.dots }}" as="d" hint-placeholder-count="3"><button type="button" class="dot" onClick="{{ d.pick }}" style="background: {{ d.bg }}; color: {{ d.fg }}">{{ d.label }}</button></sc-for><button type="button" class="arrow" aria-label="Previous slide" onClick="{{ m3.prev }}">←</button><button type="button" class="arrow" aria-label="Next slide" onClick="{{ m3.next }}">→</button></div></div>
+<div class="view"><div class="track" style="transform: translateX({{ m3.tx }})">
+<div class="sl"><span class="lbl">How we work</span><h2 class="h3 h2t"><span class="g">Understand. Design. Build. Ship.</span><span class="k">Make it matter.</span></h2>
+<div class="frame" style="background: #fff; padding: 36px 24px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px">
+<div style="position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px"><div aria-hidden="true" style="position: absolute; left: 10%; right: 10%; top: 22px; border-top: 1.5px solid #111"></div>
+<sc-for list="{{ phases }}" as="ph" hint-placeholder-count="5"><div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center"><span class="ico"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="{{ ph.d }}"></path></svg></span><span style="font-size: 14px; font-weight: 700">{{ ph.name }}</span></div></sc-for></div>
+<div aria-hidden="true" style="margin: 0 10%; height: 22px; border: 1.5px dashed #888; border-top: 0"></div>
+<span style="text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #444">Impact feeds the next “Understand”.</span></div></div>
+<div class="sl"><span class="lbl">The story</span><p class="p" style="font-size: 20px">Every requirement goes through the same five steps – and the same team that knows why the last one was decided the way it was.</p>
+<div style="display: flex; flex-direction: column; border-top: 1px solid #111"><sc-for list="{{ phases }}" as="ph" hint-placeholder-count="5"><div style="display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid #ddd"><b style="font-size: 15px">{{ ph.name }}</b><span style="font-size: 14px; color: #333">{{ ph.proof }}</span></div></sc-for></div></div>
+<div class="sl"><span class="lbl">Beyond the number</span><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 16px"><sc-for list="{{ teamCards }}" as="t" hint-placeholder-count="3"><div style="border: 1px solid #ccc; background: #fafafa; padding: 18px; display: flex; flex-direction: column; gap: 6px; min-height: 190px"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="{{ t.d }}"></path></svg><span style="font-size: 26px; font-weight: 700; margin-top: 14px">{{ t.n }}</span><b style="font-size: 14px">{{ t.title }}</b><span style="font-size: 13px; color: #444">{{ t.sub }}</span><b style="margin-top: auto; border-top: 1px solid #ccc; padding-top: 10px; font-size: 13px">✓ {{ t.check }}</b></div></sc-for></div><span class="fix" style="align-self: flex-start">CHECK · 7 disciplines and the disaster-recovery test</span><span class="hpi"><span class="lbl">Human performance indicator</span><b>Reliability</b></span></div>
+</div></div>
+<div class="ctas"><a class="btn" href="#contact">Talk to us →</a><a class="btn2" href="#top">See the whole journey →</a><span style="margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{ m3.count }}</span></div>
+</article>
+<!-- M4 -->
+<article id="journey" class="card">
+<div class="chead"><span class="ctx">Module 4 / 6 · PRODYNA × Lufthansa Cargo · 13 years</span>
+<div class="sw"><sc-for list="{{ m4.dots }}" as="d" hint-placeholder-count="3"><button type="button" class="dot" onClick="{{ d.pick }}" style="background: {{ d.bg }}; color: {{ d.fg }}">{{ d.label }}</button></sc-for><button type="button" class="arrow" aria-label="Previous slide" onClick="{{ m4.prev }}">←</button><button type="button" class="arrow" aria-label="Next slide" onClick="{{ m4.next }}">→</button></div></div>
+<div class="view"><div class="track" style="transform: translateX({{ m4.tx }})">
+<div class="sl"><div class="two">
+<div style="display: flex; flex-direction: column; gap: 16px"><span class="lbl">The journey</span><h2 class="h3">From warehouse systems to AI</h2><span style="font-size: 16px; color: #444">7 layers of the cargo business, stacked up over 13 years.</span><span class="note">↳ Motion: the line draws from the bottom (Warehouse, 2013) up to AI; each stop appears as the line reaches it.</span></div>
+<div aria-hidden="true" style="position: relative; display: flex; flex-direction: column; gap: 14px; padding: 8px 0; justify-self: center">
+<div style="position: absolute; left: 21px; top: 30px; bottom: 30px; border-left: 1.5px dashed #888"></div>
+<sc-for list="{{ chainStack }}" as="c" hint-placeholder-count="7"><div style="position: relative; display: flex; align-items: center; gap: 16px"><span class="ico" style="border-style: {{ c.bs }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="{{ c.d }}"></path></svg></span><span style="font-size: 16px; font-weight: 600; width: 110px">{{ c.name }}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #444">{{ c.year }}</span></div></sc-for>
+</div>
+</div></div>
+<div class="sl"><span class="lbl">The story</span><p class="p">The website's move to Liferay grew into a partnership across many applications. eBooking and eTracking are integrated. The FastTrack proof of concept we built paved the way for the new eBooking. One design system now connects the website and eBooking, creating a seamless and consistent user journey with a unified look and feel across digital touchpoints. 30+ releases since 2023.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 14px"><sc-for list="{{ chapters }}" as="ch" hint-placeholder-count="4"><div style="border-top: 3px solid #111; padding-top: 10px; display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; font-weight: 700">{{ ch.no }} · {{ ch.name }} · {{ ch.years }}</span><span style="font-size: 13px; line-height: 1.45; color: #333">{{ ch.copy }}</span></div></sc-for></div>
+<span style="font-size: 13px; font-style: italic; color: #444">Exact years differ by application. The direction doesn't.</span></div>
+<div class="sl"><span class="lbl">Beyond the number</span><div class="felt"><div class="fp"><b>From warehouse systems to AI</b><i>1 team that grows with every challenge</i></div><div class="fp"><b>From SOAP to AI: 13 years of technology shifts</b><i>1 constant: trust</i></div></div><span class="hpi"><span class="lbl">Human performance indicator</span><b>Range</b></span></div>
+</div></div>
+<div class="ctas"><a class="btn" href="#contact">Talk to us →</a><a class="btn2" href="#top">See the whole journey →</a><span style="margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{ m4.count }}</span></div>
+</article>
+<!-- M5 -->
+<article id="projects" class="card">
+<div class="chead"><span class="ctx">Module 5 / 6 · PRODYNA × Lufthansa Cargo · 13 years</span>
+<div class="sw"><sc-for list="{{ m5.dots }}" as="d" hint-placeholder-count="3"><button type="button" class="dot" onClick="{{ d.pick }}" style="background: {{ d.bg }}; color: {{ d.fg }}">{{ d.label }}</button></sc-for><button type="button" class="arrow" aria-label="Previous slide" onClick="{{ m5.prev }}">←</button><button type="button" class="arrow" aria-label="Next slide" onClick="{{ m5.next }}">→</button></div></div>
+<div class="view"><div class="track" style="transform: translateX({{ m5.tx }})">
+<div class="sl"><span class="lbl">Proven on the platform</span><h2 class="h3 h2t"><span class="g">Plan. Book. Track. Ask.</span><span class="k">Go further. Grow together.</span></h2>
+<div style="position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; flex: 1">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 24px; border-top: 1.5px dashed #bbb"></div>
+<sc-for list="{{ projects }}" as="pr" hint-placeholder-count="4"><div class="pc" style="position: relative; border-style: {{ pr.borderStyle }}"><div style="display: flex; justify-content: space-between; align-items: center"><span style="font-size: 12px; font-weight: 700">{{ pr.step }}</span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="{{ pr.d }}"></path></svg></div><span style="font-size: 18px; font-weight: 700">{{ pr.name }}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: #444; line-height: 1.5">{{ pr.role }}</span><span class="tag" style="background: {{ pr.tagBg }}; color: {{ pr.tagFg }}">{{ pr.status }}</span></div></sc-for>
+</div>
+<div style="display: flex; gap: 40px"><span><b style="font-size: 28px">4</b> <span style="font-size: 13px; color: #444">projects along the journey</span></span><span><b style="font-size: 28px">3</b> <span style="font-size: 13px; color: #444">started as PoC</span></span><span><b style="font-size: 28px">3</b> <span style="font-size: 13px; color: #444">live today</span></span></div></div>
+<div class="sl"><span class="lbl">The story</span><p class="p">From the first schedule search to an AI assistant: four projects along the customer journey. Three started as proofs of concept, three are live today.</p>
+<div style="display: flex; flex-direction: column; border-top: 1px solid #111"><sc-for list="{{ projects }}" as="pr" hint-placeholder-count="4"><div style="display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid #ddd"><b style="font-size: 14px">{{ pr.step }} · {{ pr.name }}</b><span style="font-size: 13px; line-height: 1.5; color: #333">{{ pr.copy }}</span></div></sc-for></div>
+<span class="note">↳ Only the Book (FastTrack) copy is an approved reference.</span></div>
+<div class="sl"><span class="lbl">Beyond the number</span><div class="felt"><div class="fp"><b>A repeat booking in as little as 30 seconds</b><i>years of trust behind it</i></div><div class="fp"><b>Complexity hidden for 80% of requests</b><i>100% openness about the hard 20%</i></div><div class="fp"><b>1 proof of concept in progress</b><i>100% curiosity</i></div><div class="fp"><b>4 projects along one journey</b><i>1 team at every stop</i></div></div><span class="hpi"><span class="lbl">Human performance indicator</span><b>Closeness to the customer</b></span></div>
+</div></div>
+<div class="ctas"><a class="btn" href="#contact">Talk to us →</a><a class="btn2" href="#top">See the whole journey →</a><span style="margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{ m5.count }}</span></div>
+</article>
+<!-- M6 -->
+<article id="design-system" class="card">
+<div class="chead"><span class="ctx">Module 6 / 6 · PRODYNA × Lufthansa Cargo · 13 years</span>
+<div class="sw"><sc-for list="{{ m6.dots }}" as="d" hint-placeholder-count="3"><button type="button" class="dot" onClick="{{ d.pick }}" style="background: {{ d.bg }}; color: {{ d.fg }}">{{ d.label }}</button></sc-for><button type="button" class="arrow" aria-label="Previous slide" onClick="{{ m6.prev }}">←</button><button type="button" class="arrow" aria-label="Next slide" onClick="{{ m6.next }}">→</button></div></div>
+<div class="view"><div class="track" style="transform: translateX({{ m6.tx }})">
+<div class="sl"><span class="lbl">One design language</span><h2 class="h3 h2t"><span class="g">Design Once.</span><span class="k">Scale Everywhere.</span></h2>
+<div style="flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 170px minmax(0, 1fr); gap: 0; align-items: center">
+<div class="frame" style="background: #fff; display: flex; flex-direction: column; gap: 12px; height: 260px; box-sizing: border-box"><span class="lbl">Website</span><div style="height: 12px; width: 45%; background: #111"></div><div style="flex: 1; border: 1px solid #bbb"></div><div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px"><div style="height: 36px; border: 1px solid #bbb"></div><div style="height: 36px; border: 1px solid #bbb"></div><div style="height: 36px; border: 1px solid #bbb"></div></div><div class="sw"><span style="background: #111; color: #fff; font-size: 11px; padding: 5px 10px">Button</span><span style="border: 1px solid #111; font-size: 11px; padding: 4px 10px">Link</span></div></div>
+<div style="display: flex; align-items: center; justify-content: center; gap: 6px"><span aria-hidden="true" style="font-size: 16px">←</span><div style="display: flex; flex-direction: column; align-items: stretch; gap: 8px; border: 1.5px dashed #111; padding: 14px 12px; width: 110px; box-sizing: border-box; text-align: center"><span class="lbl" style="color: #111; font-size: 10px">Shared UI</span><span style="background: #111; color: #fff; font-size: 11px; padding: 5px 0">Button</span><span style="border: 1px solid #111; font-size: 11px; padding: 4px 0">Link</span><span style="border: 1px solid #111; font-size: 11px; padding: 4px 0">Input</span><span style="border: 1px solid #111; font-size: 11px; padding: 4px 0">Card</span></div><span aria-hidden="true" style="font-size: 16px">→</span></div>
+<div class="frame" style="background: #fff; display: flex; flex-direction: column; gap: 12px; height: 260px; box-sizing: border-box"><span class="lbl">eBooking</span><div style="height: 12px; width: 45%; background: #111"></div><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px"><div style="height: 36px; border: 1px solid #bbb"></div><div style="height: 36px; border: 1px solid #bbb"></div></div><div style="flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px"><div style="border: 1px solid #bbb"></div><div style="border: 1px solid #bbb"></div><div style="border: 1px solid #bbb"></div></div><div class="sw"><span style="background: #111; color: #fff; font-size: 11px; padding: 5px 10px">Button</span><span style="border: 1px solid #111; font-size: 11px; padding: 4px 10px">Link</span></div></div>
+</div>
+<div style="display: flex; gap: 40px"><span><b style="font-size: 28px">2016 → 2026</b> <span style="font-size: 13px; color: #444">style guide to one design system</span></span><span><b style="font-size: 28px">1</b> <span style="font-size: 13px; color: #444">design system for website and eBooking</span></span></div></div>
+<div class="sl"><span class="lbl">The story</span><p class="p" style="font-size: 20px">Styleguide extended for corporate website and e-services, design workshops with the Lufthansa Cargo service providers: one brand experience up to the customer portal.</p>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 16px; color: #333"><li>Nearly 20 eServices redesigned, most also for mobile</li><li>Dozens of building blocks for the website CMS</li><li>One design system for the website and eBooking, with design QA from PRODYNA</li></ul></div>
+<div class="sl"><span class="lbl">Beyond the number</span><div class="felt"><div class="fp"><b>From the first style guide to one design system</b><i>10 years of speaking the same language</i></div><div class="fp"><b>Design QA on every release</b><i>0 finger-pointing</i></div><div class="fp"><b>Nearly 20 eServices redesigned</b><i>0 formalities between us</i></div><div class="fp"><b>Dozens of building blocks</b><i>1 greater whole</i></div></div><span class="hpi"><span class="lbl">Human performance indicator</span><b>Shared language</b></span></div>
+</div></div>
+<div class="ctas"><a class="btn" href="#contact">Talk to us →</a><a class="btn2" href="#top">See the whole journey →</a><span style="margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12px">{{ m6.count }}</span></div>
+</article>
+</div>
+</section>
+
+<!-- VOICES -->
+<section id="voices" style="padding: 104px 0; background: #f6f6f6">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 24px">
+<span class="ctx">PRODYNA × Lufthansa Cargo · 13 years</span>
+<p style="margin: 0; font-size: clamp(24px, 2.8vw, 36px); line-height: 1.3; font-weight: 500; max-width: 820px">“The UX/UI specialists at PRODYNA have crafted a great user experience through an optimized, user-centric design, making it easier to focus on key content with fewer clicks overall. The newly launched website is now more convenient for users.”</p>
+<span style="font-size: 14px; color: #333">— [Name], Business Owner, LCAG Website</span>
+</div>
+</section>
+
+<!-- FINAL CTA + CONTACT -->
+<section id="contact" style="padding: 104px 0">
+<div class="wrap" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 56px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<img src="./assets/677de1826bfa1670d124b495d141598c.svg" alt="13 Years. One Journey." style="height: 32px; width: auto; display: block; align-self: flex-start">
+<h2 class="h2t" style="margin: 0; font-size: clamp(32px, 3.8vw, 52px); font-weight: 700; letter-spacing: -.02em; line-height: 1.05"><span class="g">Behind every lasting partnership is a great first conversation.</span><span class="k">Let's have ours.</span></h2>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #292929">Whether UX, engineering, or strategic partnership – talk to us about your challenges.</p>
+<div class="ctas"><a class="btn" href="#form">Get in touch →</a><a class="btn2" href="#">Explore services</a></div>
+<div class="sw" style="gap: 16px; margin-top: 8px"><div style="width: 88px; height: 88px; background: #c5c5c5"></div><div style="display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600">[Contact name]</span><span style="font-size: 14px; color: #333">[Role] · Frankfurt am Main</span></div></div>
+</div>
+<form id="form" style="display: flex; flex-direction: column; gap: 16px; background: #111; color: #fff; padding: 32px">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Name<input type="text" style="min-height: 44px; border: 1px solid #666; padding: 0 12px; font: inherit; font-weight: 400"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Company<input type="text" style="min-height: 44px; border: 1px solid #666; padding: 0 12px; font: inherit; font-weight: 400"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Email<input type="email" style="min-height: 44px; border: 1px solid #666; padding: 0 12px; font: inherit; font-weight: 400"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Which module brought you here?<textarea rows="4" style="border: 1px solid #666; padding: 12px; font: inherit; font-weight: 400"></textarea></label>
+<button type="button" class="btn" style="border: 0; cursor: pointer; align-self: flex-start; background: #fff; color: #111">Send →</button>
+</form>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background: #fff; border-top: 1px solid #ccc; padding: 64px 0 32px; flex: 1 0 auto">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 48px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 40px">
+<div class="fl"><span class="lbl" style="color: #111">Services</span><a href="#">Full Services</a><a href="#">Data &amp; AI</a><a href="#">Design Services</a><a href="#">App Innovation</a><a href="#">Cloud Migration &amp; Modernization</a><a href="#">DevOps &amp; Platform Engineering</a><a href="#">Intelligent Business Apps</a><a href="#">Customer Experience Platforms</a><a href="#">Managed Services</a><a href="#">Trainings &amp; Certifications</a></div>
+<div class="fl"><span class="lbl" style="color: #111">Expertise</span><a href="#">Overview</a><a href="#">Microsoft Azure</a><a href="#">Amazon Web Services</a><a href="#">Mobile Apps</a><a href="#">Neo4j</a><a href="#">Rust &amp; Go Apps</a><a href="#">Magnolia</a><a href="#">Quality Assurance</a><a href="#">Liferay Development Services</a></div>
+<div class="fl"><span class="lbl" style="color: #111">Company</span><a href="#">Success Stories</a><a href="#">Insights</a><a href="#">Careers</a><a href="#">About Us</a><a href="#">News/Events</a></div>
+<div><img src="./assets/0dd6362f7cac3b12fbdfc486082959c2.svg" alt="PRODYNA" style="height: 26px; width: auto; display: block"></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid #ddd; padding-top: 24px; font-size: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 18px; color: #333"><span>© PRODYNA 2026</span><a href="#" style="text-decoration: none">Imprint</a><a href="#" style="text-decoration: none">Data Privacy</a><a href="#" style="text-decoration: none">Whistleblower</a><a href="#" style="text-decoration: none">Sitemap</a><a href="#" style="text-decoration: none">Contact</a><a href="#" style="text-decoration: none">Cookies</a></div>
+<div style="display: flex; gap: 8px"><a href="#" aria-label="Facebook" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid #111; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 11px; font-weight: 600">f</a><a href="#" aria-label="X" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid #111; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 11px; font-weight: 600">X</a><a href="#" aria-label="Instagram" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid #111; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 11px; font-weight: 600">IG</a><a href="#" aria-label="YouTube" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid #111; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 11px; font-weight: 600">YT</a><a href="#" aria-label="LinkedIn" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid #111; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 11px; font-weight: 600">in</a></div>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":7980}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.state || {};
+    const I = {
+      plane: 'M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z',
+      handshake: 'M2 11l4-4 4 2 3-2 3 1 4 3 2 2 M2 11l5 5c1 1 2 1 3 0l1-1 M11 15l2 2c1 1 2 1 3 0l1-1 M14 14l2 2 M17 12l3 3 M10 9l-2 2c-.7.7-.7 1.7 0 2.4.7.7 1.7.7 2.4 0L13 11',
+      docs: 'M7 4h11a2 2 0 0 1 2 2v9 M4 8h11a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z M8 13h6 M8 16h4',
+      bolt: 'M13 2L4 14h7l-1 8 9-12h-7z',
+      people: 'M6 9a3 3 0 1 0 6 0a3 3 0 1 0-6 0 M2 20c0-3.5 3-6 7-6s7 2.5 7 6 M15 6a3 3 0 1 1 3 5 M18 14c2.5.5 4 2.5 4 6',
+      rocket: 'M5 15c-1 1-2 4-2 6 2 0 5-1 6-2 M9 15l-3-3c1-4 4-8 9-9 2 0 4 0 6 1 0 2 0 4-1 6-1 5-5 8-9 9z M15 9a1.5 1.5 0 1 0 0-.01',
+      shield: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M8.5 12l2.5 2.5 4.5-4.5',
+      warehouse: 'M3 21V9l9-5 9 5v12 M7 21v-8h10v8 M7 17h10',
+      forklift: 'M3 17V10h5l3 4v3z M11 17V4 M11 14h9 M5 20a1.5 1.5 0 1 0 0-.01 M9 20a1.5 1.5 0 1 0 0-.01',
+      doc: 'M6 3h9l4 4v14H6z M14 3v5h5 M9 12h7 M9 16h5',
+      calendar: 'M4 6h16v14H4z M4 10h16 M8 3v5 M16 3v5 M8 14h3',
+      pin: 'M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z M9.5 9a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0',
+      browser: 'M3 5h18v14H3z M3 9h18 M6 7h1',
+      ai: 'M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z',
+      search: 'M4 11a7 7 0 1 0 14 0a7 7 0 1 0-14 0 M16 16l5 5',
+      pen: 'M4 20l4-1 11-11-3-3L5 16z M14 6l3 3',
+      code: 'M8 7l-5 5 5 5 M16 7l5 5-5 5',
+      star: 'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z',
+      check: 'M4 12l5 5L20 6'
+    };
+    const whyStats = [
+      { n: '13', l: 'Years of Partnership', d: I.handshake },
+      { n: '22', l: 'Projects Delivered', d: I.docs },
+      { n: '3', l: 'ongoing Projects', d: I.bolt }
+    ];
+    const milestones = [
+      { year: '2013', title: 'Migration to Liferay Begins', copy: 'CMS selection and partnership with a Liferay implementation provider.' },
+      { year: '2016', title: 'Release for Release', copy: 'Applications such as eBooking and eTracking are added to the website.' },
+      { year: '2023', title: 'The Relaunch', copy: 'A completely redesigned website.' },
+      { year: '2024', title: 'One Design System', copy: 'A shared component library for all customer-facing applications.' },
+      { year: '2025', title: 'New eBooking', copy: 'A second customer application built on the shared design system.' },
+      { year: '2026', title: 'Same Address, New Experience', copy: 'Redesigned homepage, navigation, header, and footer.' }
+    ];
+    const phases = [
+      { name: 'Understand', proof: 'FastTrack started as a proof of concept before scaling.', d: I.search },
+      { name: 'Design', proof: 'One design system for website and eBooking, with design QA from PRODYNA.', d: I.pen },
+      { name: 'Build', proof: 'Booking reduced to 3 steps, hiding complexity for 80% of requests.', d: I.code },
+      { name: 'Ship', proof: '30+ releases delivered since 2023.', d: I.plane },
+      { name: 'Impact', proof: 'First customer praise within the first hour. Rated 4.5/5.', d: I.star }
+    ];
+    const chain = [
+      { name: 'Warehouse', d: I.warehouse }, { name: 'Handling', d: I.forklift }, { name: 'Customs', d: I.doc },
+      { name: 'Booking', d: I.calendar }, { name: 'Tracking', d: I.pin }, { name: 'Website', d: I.browser }, { name: 'AI', d: I.ai }
+    ];
+    const chapters = [
+      { no: '1', name: 'Cornerstone', years: '2013', copy: 'Our work starts in logistics: a forklift guidance system and the new Lufthansa Cargo Center. In 2014 Lufthansa Cargo chooses Liferay for its website relaunch, and we build the prototype.' },
+      { no: '2', name: 'Growth', years: '2014–2020', copy: 'eBooking and eTracking become part of the website. We bring architecture and software development: the first style guide, electronic air waybills, customs data, partner integration, the booking API.' },
+      { no: '3', name: 'Proofs of concept · Library', years: '2022–2025', copy: 'Proofs of concept test ideas fast. The FastTrack proof of concept we build paves the way for the new eBooking project. Then the component library, one base for customer-facing applications.' },
+      { no: '4', name: 'Today', years: '2025–2026', copy: 'One CI, one customer journey without breaks. New eBooking and eTracking since 2025, one design system since 2026.' }
+    ];
+    const teamCards = [
+      { n: '7', title: 'Disciplines', sub: 'One team', check: '0 handovers', d: I.people },
+      { n: '30+', title: 'Releases', sub: 'Since 2023', check: '0 missed departures', d: I.rocket },
+      { n: '1', title: 'Disaster Recovery Test', sub: 'On every release day', check: '0 disasters', d: I.shield }
+    ];
+    const live = { tagBg: '#111', tagFg: '#fff' };
+    const projects = [
+      Object.assign({ step: '1 · Plan', name: 'Schedule & Routing', role: 'Concept, design and QA', copy: 'A redesigned schedule that shows recommended routes at a glance, prices right in the schedule and hands the chosen flight to the booking, pre-filled.', status: 'Live', d: I.calendar, borderStyle: 'solid' }, live),
+      Object.assign({ step: '2 · Book', name: 'FastTrack', role: 'Proof of concept, with contributions to concept and design', copy: 'Booking engine built with rapid prototyping. A booking in three steps; complexity hidden for 80% of requests. 350+ consultant days, Experience Driven Development.', status: 'PoC → Live', d: I.check, borderStyle: 'solid' }, live),
+      Object.assign({ step: '3 · Track', name: 'eTracking', role: 'Proof of concept: UX/UI, design system, engineering', copy: 'Our proof of concept tested a new way to track shipments. The new eTracking has been live since 2025.', status: 'PoC → Live', d: I.pin, borderStyle: 'solid' }, live),
+      { step: '4 · Ask', name: 'AI Assistant', role: 'Use cases, UX/UI, architecture, proof of concept', copy: 'In progress: an AI assistant for the website, with chat and AI-supported guidance for dangerous-goods bookings.', status: 'PoC · in progress', d: I.ai, borderStyle: 'dashed', tagBg: '#ddd', tagFg: '#111' }
+    ];
+    const projFelt = [
+      { b: 'A repeat booking in as little as 30 seconds', i: 'years of trust behind it' },
+      { b: 'Complexity hidden for 80% of requests', i: '100% openness about the hard 20%' },
+      { b: 'Recommended routes at a glance', i: 'always found the right course together' },
+      { b: 'Every milestone visible', i: 'always at the same flight level' },
+      { b: '1 proof of concept in progress', i: '100% curiosity' },
+      { b: '4 projects along one journey', i: '1 team at every stop' }
+    ];
+    
+    const labels = ['1 · The number', '2 · The story', '3 · Beyond the number'];
+    const mk = (k) => {
+      const n = st[k] || 0;
+      return {
+        tx: n === 0 ? '0px' : 'calc(' + (-n) + ' * (88% + 24px))',
+        count: 'Slide ' + (n + 1) + ' / 3',
+        dots: labels.map((label, i) => ({ label, bg: i === n ? '#111' : '#fff', fg: i === n ? '#fff' : '#111', pick: () => this.setState({ [k]: i }) })),
+        prev: () => this.setState({ [k]: Math.max(0, n - 1) }),
+        next: () => this.setState({ [k]: Math.min(2, n + 1) })
+      };
+    };
+    
+    const y = (yr, m) => yr + (m - 1) / 12;
+    const NOW = y(2026, 11);
+    const pos = (s, e, on) => ({ left: ((s - 2013) / 14 * 100).toFixed(2) + '%', width: Math.max(1.2, (e - s) / 14 * 100).toFixed(2) + '%', bg: on ? '#111' : '#a0a0a0', bgD: on ? '#fff' : '#777' });
+    const groupsRaw = [
+      ['Warehouse & logistics', [[y(2013,8),y(2015,4)],[y(2013,7),y(2015,4)],[y(2014,10),y(2016,9)],[y(2014,12),y(2016,9)],[y(2017,11),y(2018,8)]]],
+      ['Website & design', [[y(2014,6),y(2014,12)],[y(2016,5),y(2016,8)],[y(2016,4),y(2017,4)],[y(2022,2),NOW,1],[y(2025,5),y(2025,11)]]],
+      ['Booking & tracking', [[y(2018,1),y(2018,3)],[y(2019,9),y(2020,3)],[y(2022,5),NOW,1],[y(2023,1),y(2024,6)],[y(2023,10),y(2025,8)],[y(2024,10),y(2025,10)],[y(2025,6),y(2025,8)],[y(2026,2),NOW,1],[y(2026,2),NOW,1]]],
+      ['Data & AI', [[y(2023,10),y(2025,12)],[y(2025,9),NOW,1],[y(2025,9),y(2025,12)]]]
+    ];
+    const groups = groupsRaw.map(([name, list]) => ({ name, items: list.map(([s, e, on]) => pos(s, e, on)) }));
+    const bars = [];
+    groups.forEach((g) => g.items.forEach((b) => bars.push(b)));
+    
+    const stackYears = { Warehouse: 'since 2013', Handling: 'since 2013', Customs: 'since 2017', Booking: 'since 2018', Tracking: 'since 2023', Website: 'since 2014', AI: 'since 2025' };
+    const chainStack = chain.slice().reverse().map((c, i) => ({ name: c.name, d: c.d, year: stackYears[c.name], w: (58 + i * 7) + '%', bg: i === 0 ? '#fff' : '#f6f6f6', bs: i === 0 ? 'dashed' : 'solid' }));
+    projects.forEach((p) => { p.stepName = p.step + ' · ' + p.name; });
+    return { I, bars, groups, chainStack, whyStats, milestones, phases, chain, chapters, teamCards, projects,
+      m1: mk('m1'), m2: mk('m2'), m3: mk('m3'), m4: mk('m4'), m5: mk('m5'), m6: mk('m6') };
+  }
+}
+</script>
+</body>
+</html>
